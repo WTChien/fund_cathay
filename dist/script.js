@@ -70,9 +70,7 @@ function renderFunds(pageData) {
   const fundList = document.getElementById("fund-list");
   fundList.innerHTML = pageData.funds
     .map((fund) => {
-      const bars = fund.trend
-        .map((height) => `<span style="height: ${height}%"></span>`)
-        .join("");
+      const lineChart = createLineChart(fund.trend);
 
       return `
         <article class="fund-card">
@@ -91,13 +89,50 @@ function renderFunds(pageData) {
               <span>${fund.currency}</span>
               <span>${fund.trendLabel}</span>
             </div>
-            <div class="bars" aria-hidden="true">${bars}</div>
+            <div class="line-chart" aria-hidden="true">${lineChart}</div>
           </div>
           <a class="fund-link" href="${fund.link}" target="_blank" rel="noreferrer">查看官方資料</a>
         </article>
       `;
     })
     .join("");
+}
+
+function createLineChart(values) {
+  const width = 120;
+  const height = 56;
+  const padding = 8;
+  const safeValues = values.length ? values : [50, 50, 50, 50, 50, 50, 50];
+  const min = Math.min(...safeValues);
+  const max = Math.max(...safeValues);
+  const range = max - min || 1;
+
+  const points = safeValues.map((value, index) => {
+    const x =
+      padding +
+      (index * (width - padding * 2)) / Math.max(1, safeValues.length - 1);
+    const y =
+      height -
+      padding -
+      ((value - min) / range) * (height - padding * 2);
+    return [Number(x.toFixed(2)), Number(y.toFixed(2))];
+  });
+
+  const path = points
+    .map(([x, y], index) => `${index === 0 ? "M" : "L"} ${x} ${y}`)
+    .join(" ");
+  const area = `${path} L ${points[points.length - 1][0]} ${height - padding} L ${points[0][0]} ${height - padding} Z`;
+  const dots = points
+    .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.4"></circle>`)
+    .join("");
+
+  return `
+    <svg viewBox="0 0 ${width} ${height}" focusable="false">
+      <path class="line-area" d="${area}"></path>
+      <path class="line-path" d="${path}"></path>
+      <g class="line-dots">${dots}</g>
+    </svg>
+  `;
 }
 
 loadFunds();

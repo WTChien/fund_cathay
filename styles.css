@@ -236,11 +236,7 @@ h1 {
   font-weight: 800;
 }
 
-.bars {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  align-items: end;
-  gap: 6px;
+.line-chart {
   height: min(12vh, 88px);
   min-height: 56px;
   padding: 10px;
@@ -248,10 +244,29 @@ h1 {
   background: #f7f9f8;
 }
 
-.bars span {
-  min-height: 14px;
-  border-radius: 6px 6px 2px 2px;
-  background: linear-gradient(180deg, var(--gold), var(--green));
+.line-chart svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.line-area {
+  fill: rgba(8, 112, 79, 0.12);
+}
+
+.line-path {
+  fill: none;
+  stroke: var(--green);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.line-dots circle {
+  fill: var(--gold);
+  stroke: var(--green-dark);
+  stroke-width: 1.5;
 }
 
 .fund-link {
@@ -406,16 +421,18 @@ h1 {
     text-align: right;
   }
 
-  .bars {
+  .line-chart {
     height: 44px;
     min-height: 44px;
-    gap: 3px;
     padding: 7px;
   }
 
-  .bars span {
-    min-height: 8px;
-    border-radius: 4px 4px 2px 2px;
+  .line-path {
+    stroke-width: 4.5;
+  }
+
+  .line-dots circle {
+    r: 2.6px;
   }
 
   .fund-link {
