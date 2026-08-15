@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="簡潔顯示三檔國泰基金資訊，適合長輩快速查看。" />
+    <title>國泰基金安心看</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="top-bar" aria-labelledby="page-title">
+        <div class="brand-mark" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="title-area">
+          <p class="eyebrow">給家人看的基金小看板</p>
+          <h1 id="page-title">國泰三檔基金</h1>
+        </div>
+        <div class="updated-box">
+          <span>資料日期</span>
+          <strong id="updated-date">請更新</strong>
+          <small id="source-status">讀取 SITCA 中</small>
+        </div>
+      </header>
+
+      <section class="notice" aria-label="提醒">
+        <strong>簡單看就好</strong>
+        <span>資料來源為 SITCA 投信投顧公會基金淨值（日）。基金不是股票，淨值通常每日更新，不是盤中即時價格。</span>
+      </section>
+
+      <section class="fund-list" aria-label="三檔基金清單" id="fund-list"></section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    runtime: node
+    name: fund-cathay
+    buildCommand: npm run build
+    startCommand: npm start
