@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || "0.0.0.0";
 const SITCA_URL = "https://www.sitca.org.tw/ROC/Industry/IN2106.aspx?pid=IN2213_02";
 const CATHAY_COMPANY_ID = "A0037";
 const CACHE_MS = 1000 * 60 * 30;
@@ -303,6 +304,6 @@ const server = http.createServer(async (req, res) => {
   serveStatic(req, res);
 });
 
-server.listen(PORT, () => {
-  console.log(`Fund site running at http://localhost:${PORT}`);
+server.listen(PORT, HOST, () => {
+  console.log(`Fund site running at http://${HOST}:${PORT}`);
 });
